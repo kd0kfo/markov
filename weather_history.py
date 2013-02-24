@@ -1,6 +1,6 @@
-def get_url(month,day,year):
-    from import_settings import WUNDRGROUND_KEY
-    fmt = "http://api.wunderground.com/api/%s/history_%4d%02d%02d/q/TN/Memphis.json" % WUNDERGROUND_KEY
+def get_url(month,day,year,state,city):
+    from local_settings import WUNDERGROUND_KEY
+    fmt = "http://api.wunderground.com/api/%s/history_%%4d%%02d%%02d/q/%s/%s.json" % (WUNDERGROUND_KEY, state, city)
     
     return fmt % (year,month,day)
 
@@ -15,12 +15,13 @@ def get_wx_data(url):
 
 if __name__ == "__main__":
     from time import sleep
+    from local_settings import STATE,CITY
     for i in xrange(31):
         if i and i % 9 == 0:
             print("Sleeping after 9 downloads")
             sleep(60)
         (month,day,year) = (03,i+1,2012)
-        url = get_url(month,day,year)
+        url = get_url(month,day,year,STATE,CITY)
         print(url)
         (data, json_string) = get_wx_data(url)
         with open("wx_%d%02d%02d.json" % (year,month,day),"w") as output:
