@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+#
+# Downloads a month's worth of weather data (currently March 2012) from weather underground.
+# Requires their API key. This should be placed in a file called "local_settings.py" which
+# needs to be in the python path BUT NOT THE REPOSITORY! The key should be a string with the
+# variable name WUNDERGROUND_KEY.
+#
+# After 9 downloads, the script will sleep for 60 seconds. The reason for this is the 10 downloads per minute limit on the free API access.
+
 def get_url(month,day,year,state,city):
     from local_settings import WUNDERGROUND_KEY
     fmt = "http://api.wunderground.com/api/%s/history_%%4d%%02d%%02d/q/%s/%s.json" % (WUNDERGROUND_KEY, state, city)
