@@ -25,11 +25,17 @@ def get_wx_data(url):
 if __name__ == "__main__":
     from time import sleep
     from local_settings import STATE,CITY
-    for i in xrange(31):
+    from sys import argv
+    
+    the_month = int(argv[1])
+    max_day = int(argv[2])
+    the_year = int(argv[3])
+
+    for i in xrange(max_day):
         if i and i % 9 == 0:
             print("Sleeping after 9 downloads")
             sleep(60)
-        (month,day,year) = (03,i+1,2012)
+        (month,day,year) = (the_month,i+1,the_year)
         url = get_url(month,day,year,STATE,CITY)
         print(url)
         (data, json_string) = get_wx_data(url)
